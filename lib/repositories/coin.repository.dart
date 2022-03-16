@@ -7,12 +7,21 @@ class CoinRepository {
         name: "Bitcoin",
         acronym: "BTC",
         price: 164603.00),
-    Coin(icon: "images/cardano.png", name: "ADA", acronym: "BTC", price: 6.34),
+    Coin(
+        icon: "images/cardano.png",
+        name: "Cardano",
+        acronym: "BTC",
+        price: 6.34),
     Coin(
         icon: "images/ethereum.png",
         name: "Ethereum",
         acronym: "ETH",
         price: 9716.00),
     Coin(icon: "images/xrp.png", name: "XRP", acronym: "XRP", price: 164603.00),
+    Coin(
+        icon: "images/litecoin.png",
+        name: "Litecoin",
+        acronym: "LTC",
+        price: 669.00),
   ];
 }
