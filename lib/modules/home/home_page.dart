@@ -32,19 +32,33 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         onPageChanged: setPage,
         controller: pc,
-        children: [CoinsPage(), FavoritesPage()],
+        children: const [CoinsPage(), FavoritesPage()],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: "All"),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: "Favorites")
-        ],
-        currentIndex: currentPage,
-        onTap: (page) {
-          pc.animateToPage(page,
-              duration: Duration(milliseconds: 400), curve: Curves.ease);
-        },
-        backgroundColor: Colors.grey[100],
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+            labelTextStyle: MaterialStateProperty.all(
+                const TextStyle(fontSize: 14, fontWeight: FontWeight.w500))),
+        child: NavigationBar(
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.view_list_outlined),
+              label: "All",
+              selectedIcon: Icon(Icons.view_list),
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.star_border),
+              label: "Favorites",
+              selectedIcon: Icon(Icons.star_outlined),
+            )
+          ],
+          selectedIndex: currentPage,
+          onDestinationSelected: (page) {
+            pc.animateToPage(page,
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.ease);
+          },
+          backgroundColor: Colors.grey[100],
+        ),
       ),
     );
   }
