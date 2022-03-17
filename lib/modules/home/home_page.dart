@@ -1,3 +1,4 @@
+import 'package:crypto/modules/coin_details/coin_details_page.dart';
 import 'package:crypto/repositories/coin.repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -41,6 +42,11 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  showDetails(Coin coin) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => CoinDetailsPage(coin: coin)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,9 +74,9 @@ class _HomePageState extends State<HomePage> {
                   (selected.contains(table[coin]))
                       ? selected.remove(table[coin])
                       : selected.add(table[coin]);
-                  print(table[coin].name);
                 });
               },
+              onTap: () => showDetails(table[coin]),
             );
           },
           padding: EdgeInsets.all(16),
