@@ -1,3 +1,4 @@
+import 'package:crypto/configs/app_settings.dart';
 import 'package:crypto/modules/coin_details/coin_details_page.dart';
 import 'package:crypto/repositories/coin.repository.dart';
 import 'package:crypto/repositories/favorites_repository.dart';
@@ -15,14 +16,41 @@ class CoinsPage extends StatefulWidget {
 
 class _CoinsPageState extends State<CoinsPage> {
   final table = CoinRepository.table;
-  NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
+  late NumberFormat real;
+  late Map<String, String> loc;
   List<Coin> selected = [];
   late FavoritesRepository favorites;
+
+  readNumberFormat() {
+    loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc["locale"], name: loc["name"]);
+  }
+
+  changeLanguageButton() {
+    final locale = loc["locale"] == "pt_BR" ? "en_US" : "pt_BR";
+    final name = loc["locale"] == "pt_BR" ? "\$" : "R\$";
+
+    return PopupMenuButton(
+      icon: const Icon(Icons.language),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+            child: ListTile(
+          leading: const Icon(Icons.swap_vert),
+          title: Text("Use $locale"),
+          onTap: () {
+            context.read<AppSettings>().setLocale(locale, name);
+            Navigator.pop(context);
+          },
+        )),
+      ],
+    );
+  }
 
   dynamicAppbar() {
     if (selected.isEmpty) {
       return AppBar(
         title: const Center(child: Text("Cryptocurrencies")),
+        actions: [changeLanguageButton()],
       );
     } else {
       return AppBar(
@@ -58,7 +86,7 @@ class _CoinsPageState extends State<CoinsPage> {
   @override
   Widget build(BuildContext context) {
     favorites = Provider.of<FavoritesRepository>(context);
-
+    readNumberFormat();
     return Scaffold(
       appBar: dynamicAppbar(),
       body: ListView.separated(
@@ -78,7 +106,8 @@ class _CoinsPageState extends State<CoinsPage> {
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
                       )),
-                  if (favorites.list.contains(table[coin]))
+                  if (favorites.list
+                      .any((fav) => fav.acronym == table[coin].acronym))
                     const Icon(
                       Icons.star,
                       color: Colors.amber,
