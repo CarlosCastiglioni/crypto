@@ -1,6 +1,7 @@
 import 'package:crypto/modules/coins/coins_page.dart';
 import 'package:flutter/material.dart';
 
+import '../app_settings/settings_page.dart';
 import '../favorites/favorites_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         onPageChanged: setPage,
         controller: pc,
-        children: const [CoinsPage(), FavoritesPage()],
+        children: const [CoinsPage(), FavoritesPage(), SettingsPage()],
       ),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
@@ -41,15 +42,17 @@ class _HomePageState extends State<HomePage> {
         child: NavigationBar(
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.view_list_outlined),
-              label: "All",
-              selectedIcon: Icon(Icons.view_list),
-            ),
+                icon: Icon(Icons.view_list_outlined),
+                label: "All",
+                selectedIcon: Icon(Icons.view_list)),
             NavigationDestination(
-              icon: Icon(Icons.star_border),
-              label: "Favorites",
-              selectedIcon: Icon(Icons.star_outlined),
-            )
+                icon: Icon(Icons.star_border),
+                label: "Favorites",
+                selectedIcon: Icon(Icons.star_outlined)),
+            NavigationDestination(
+                icon: Icon(Icons.settings_outlined),
+                label: "Settings",
+                selectedIcon: Icon(Icons.settings)),
           ],
           selectedIndex: currentPage,
           onDestinationSelected: (page) {

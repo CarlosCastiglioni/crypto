@@ -10,7 +10,7 @@ class CoinRepository {
     Coin(
         icon: "images/cardano.png",
         name: "Cardano",
-        acronym: "BTC",
+        acronym: "ADA",
         price: 6.34),
     Coin(
         icon: "images/ethereum.png",

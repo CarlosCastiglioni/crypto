@@ -1,12 +1,12 @@
 import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../configs/shared_pref.dart';
+import '../configs/shared_pref_convert.dart';
 import '../models/coin.dart';
 
 class FavoritesRepository extends ChangeNotifier {
   final List<Coin> _list = [];
-  SharedPref sharedPref = SharedPref();
+  SharedPrefConvert sharedPref = SharedPrefConvert();
 
   FavoritesRepository() {
     _startFavorites();
