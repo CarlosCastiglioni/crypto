@@ -52,7 +52,7 @@ class DB {
       operation_type TEXT,
       coin TEXT,
       acronym TEXT,
-      value TEXT,
+      value REAL,
       quantity TEXT
     );
 ''';

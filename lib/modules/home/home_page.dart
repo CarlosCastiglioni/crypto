@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../app_settings/settings_page.dart';
 import '../favorites/favorites_page.dart';
+import '../wallet/wallet_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,7 +34,12 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         onPageChanged: setPage,
         controller: pc,
-        children: const [CoinsPage(), FavoritesPage(), SettingsPage()],
+        children: const [
+          CoinsPage(),
+          FavoritesPage(),
+          WalletPage(),
+          SettingsPage(),
+        ],
       ),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
@@ -49,6 +55,10 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.star_border),
                 label: "Favorites",
                 selectedIcon: Icon(Icons.star_outlined)),
+            NavigationDestination(
+                icon: Icon(Icons.account_balance_wallet_outlined),
+                label: "Wallet",
+                selectedIcon: Icon(Icons.account_balance_wallet)),
             NavigationDestination(
                 icon: Icon(Icons.settings_outlined),
                 label: "Settings",

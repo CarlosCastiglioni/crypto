@@ -2,13 +2,15 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/coin.dart';
+import '../../repositories/account_repository.dart';
 
 class CoinDetailsPage extends StatefulWidget {
-  Coin coin;
+  final Coin coin;
 
-  CoinDetailsPage({Key? key, required this.coin}) : super(key: key);
+  const CoinDetailsPage({Key? key, required this.coin}) : super(key: key);
 
   @override
   State<CoinDetailsPage> createState() => _CoinDetailsPageState();
@@ -19,9 +21,12 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
   final _form = GlobalKey<FormState>();
   final _value = TextEditingController();
   double quantity = 0;
+  late AccountRepository account;
 
-  buy() {
+  buy() async {
     if (_form.currentState!.validate()) {
+      await account.buy(widget.coin, double.parse(_value.text));
+
       BotToast.showText(text: "Purchase finished with success!");
       Navigator.pop(context);
     }
@@ -29,6 +34,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    account = Provider.of<AccountRepository>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.coin.name),
@@ -44,7 +50,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(width: 50, child: Image.asset(widget.coin.icon)),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
@@ -64,10 +70,11 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                     child: Container(
                       child: Text(
                         "$quantity ${widget.coin.acronym}",
-                        style: TextStyle(fontSize: 20, color: Colors.teal),
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.teal),
                       ),
-                      margin: EdgeInsets.only(bottom: 24),
-                      padding: EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(bottom: 24),
+                      padding: const EdgeInsets.all(12),
                       alignment: Alignment.center,
                       decoration:
                           BoxDecoration(color: Colors.teal.withOpacity(0.05)),
@@ -80,8 +87,8 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
               key: _form,
               child: TextFormField(
                 controller: _value,
-                style: TextStyle(fontSize: 22),
-                decoration: InputDecoration(
+                style: const TextStyle(fontSize: 22),
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Value",
                     prefixIcon: Icon(Icons.monetization_on_outlined),
@@ -96,6 +103,8 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                     return "Please inform a value";
                   } else if (double.parse(value) < 50) {
                     return "Minimum of 50 reais";
+                  } else if (double.parse(value) > account.balance) {
+                    return "Not enough balance";
                   }
                   return null;
                 },
