@@ -4,7 +4,7 @@ import 'package:crypto/repositories/coin.repository.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../database/db.dart';
+import '../databases/db.dart';
 import '../models/coin.dart';
 
 class AccountRepository extends ChangeNotifier {

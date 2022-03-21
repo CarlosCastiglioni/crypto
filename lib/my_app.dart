@@ -1,7 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:crypto/widgets/auth_check.dart';
 import 'package:flutter/material.dart';
-
-import 'modules/home/home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: "Crypto",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.indigo),
-      home: HomePage(),
+      home: AuthCheck(),
     );
   }
 }
