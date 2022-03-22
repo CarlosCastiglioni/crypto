@@ -15,11 +15,12 @@ class CoinsPage extends StatefulWidget {
 }
 
 class _CoinsPageState extends State<CoinsPage> {
-  final table = CoinRepository.table;
+  late List<Coin> table;
   late NumberFormat real;
   late Map<String, String> loc;
   List<Coin> selected = [];
   late FavoritesRepository favorites;
+  late CoinRepository coins;
 
   readNumberFormat() {
     loc = context.watch<AppSettings>().locale;
@@ -85,52 +86,59 @@ class _CoinsPageState extends State<CoinsPage> {
 
   @override
   Widget build(BuildContext context) {
-    favorites = Provider.of<FavoritesRepository>(context);
+    favorites = context.watch<FavoritesRepository>();
+    coins = context.watch<CoinRepository>();
+    table = coins.table;
     readNumberFormat();
+
     return Scaffold(
       appBar: dynamicAppbar(),
-      body: ListView.separated(
-          itemBuilder: (BuildContext context, int coin) {
-            return ListTile(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12))),
-              leading: (selected.contains(table[coin]))
-                  ? const CircleAvatar(
-                      child: Icon(Icons.check),
-                    )
-                  : SizedBox(width: 40, child: Image.asset(table[coin].icon)),
-              title: Row(
-                children: [
-                  Text(table[coin].name,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                      )),
-                  if (favorites.list
-                      .any((fav) => fav.acronym == table[coin].acronym))
-                    const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                      size: 14,
-                    )
-                ],
-              ),
-              trailing: Text(real.format(table[coin].price)),
-              selected: selected.contains(table[coin]),
-              selectedTileColor: Colors.indigo[50],
-              onLongPress: () {
-                setState(() {
-                  (selected.contains(table[coin]))
-                      ? selected.remove(table[coin])
-                      : selected.add(table[coin]);
-                });
-              },
-              onTap: () => showDetails(table[coin]),
-            );
-          },
-          padding: const EdgeInsets.all(16),
-          separatorBuilder: (_, __) => const Divider(),
-          itemCount: table.length),
+      body: RefreshIndicator(
+        onRefresh: () => coins.checkPrices(),
+        child: ListView.separated(
+            itemBuilder: (BuildContext context, int coin) {
+              return ListTile(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12))),
+                leading: (selected.contains(table[coin]))
+                    ? const CircleAvatar(
+                        child: Icon(Icons.check),
+                      )
+                    : SizedBox(
+                        width: 40, child: Image.network(table[coin].icon)),
+                title: Row(
+                  children: [
+                    Text(table[coin].name,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    if (favorites.list
+                        .any((fav) => fav.acronym == table[coin].acronym))
+                      const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 14,
+                      )
+                  ],
+                ),
+                trailing: Text(real.format(table[coin].price)),
+                selected: selected.contains(table[coin]),
+                selectedTileColor: Colors.indigo[50],
+                onLongPress: () {
+                  setState(() {
+                    (selected.contains(table[coin]))
+                        ? selected.remove(table[coin])
+                        : selected.add(table[coin]);
+                  });
+                },
+                onTap: () => showDetails(table[coin]),
+              );
+            },
+            padding: const EdgeInsets.all(16),
+            separatorBuilder: (_, __) => const Divider(),
+            itemCount: table.length),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: selected.isNotEmpty
           ? FloatingActionButton.extended(

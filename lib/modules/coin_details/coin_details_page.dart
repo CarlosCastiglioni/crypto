@@ -49,7 +49,11 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(width: 50, child: Image.asset(widget.coin.icon)),
+                  SizedBox(
+                      child: Image.network(
+                    widget.coin.icon,
+                    scale: 2.5,
+                  )),
                   const SizedBox(
                     width: 10,
                   ),
