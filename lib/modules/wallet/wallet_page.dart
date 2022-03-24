@@ -70,7 +70,7 @@ class _WalletPageState extends State<WalletPage> {
 
     List<Widget> widgets = [];
 
-    for (var operation in history) {
+    for (var operation in history.reversed) {
       widgets.add(ListTile(
         title: Text(operation.coin.name),
         subtitle: Text(date.format(operation.operationDate)),

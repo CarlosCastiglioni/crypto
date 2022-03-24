@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth_service.dart';
+import '../documents/documents_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -38,24 +39,40 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: updateBalance, icon: const Icon(Icons.edit)),
             ),
             const Divider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              child: OutlinedButton(
-                onPressed: () => context.read<AuthService>().logout(),
-                style: OutlinedButton.styleFrom(
-                  primary: Colors.red,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        'Logout',
-                        style: TextStyle(fontSize: 18),
-                      ),
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text("Scan your ID"),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DocumentsPage(),
+                    fullscreenDialog: true),
+              ),
+            ),
+            const Divider(),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: OutlinedButton(
+                    onPressed: () => context.read<AuthService>().logout(),
+                    style: OutlinedButton.styleFrom(
+                      primary: Colors.red,
                     ),
-                  ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
