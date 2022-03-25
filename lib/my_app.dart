@@ -1,4 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:crypto_app/themes/app_colors.dart';
+import 'package:crypto_app/themes/app_text_styles.dart';
 import 'package:crypto_app/widgets/auth_check.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +13,11 @@ class MyApp extends StatelessWidget {
       builder: BotToastInit(),
       title: "Crypto",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.indigo),
-      home: AuthCheck(),
+      theme: ThemeData(
+          appBarTheme: AppBarTheme(titleTextStyle: TextStyles.baseTitle),
+          colorScheme:
+              ColorScheme.fromSwatch().copyWith(primary: AppColors.primary)),
+      home: const AuthCheck(),
     );
   }
 }

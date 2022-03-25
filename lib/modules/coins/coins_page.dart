@@ -2,6 +2,8 @@ import 'package:crypto_app/configs/app_settings.dart';
 import 'package:crypto_app/modules/coin_details/coin_details_page.dart';
 import 'package:crypto_app/repositories/coin.repository.dart';
 import 'package:crypto_app/repositories/favorites_repository.dart';
+import 'package:crypto_app/themes/app_colors.dart';
+import 'package:crypto_app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -71,12 +73,11 @@ class _CoinsPageState extends State<CoinsPage> {
             });
           },
         ),
-        title: Center(child: Text('${selected.length} selected')),
-        backgroundColor: Colors.blueGrey[50],
+        title: Center(child: Text('${selected.length} Selected')),
+        backgroundColor: AppColors.label,
         elevation: 1,
-        iconTheme: const IconThemeData(color: Colors.black87),
-        titleTextStyle: const TextStyle(
-            color: Colors.black87, fontSize: 20, fontWeight: FontWeight.bold),
+        iconTheme: const IconThemeData(color: AppColors.dark),
+        titleTextStyle: TextStyles.selectionTitle,
       );
     }
   }
@@ -111,17 +112,17 @@ class _CoinsPageState extends State<CoinsPage> {
                     borderRadius: BorderRadius.all(Radius.circular(12))),
                 leading: (selected.contains(table[coin]))
                     ? const CircleAvatar(
-                        child: Icon(Icons.check),
+                        backgroundColor: AppColors.label,
+                        foregroundColor: AppColors.background,
+                        child: Icon(
+                          Icons.check,
+                        ),
                       )
                     : SizedBox(
                         width: 40, child: Image.network(table[coin].icon)),
                 title: Row(
                   children: [
-                    Text(table[coin].name,
-                        style: const TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
-                        )),
+                    Text(table[coin].name, style: TextStyles.text),
                     if (favorites.list
                         .any((fav) => fav.acronym == table[coin].acronym))
                       const Icon(
@@ -133,7 +134,7 @@ class _CoinsPageState extends State<CoinsPage> {
                 ),
                 trailing: Text(real.format(table[coin].price)),
                 selected: selected.contains(table[coin]),
-                selectedTileColor: Colors.indigo[50],
+                selectedTileColor: AppColors.secondary.withOpacity(0.7),
                 onLongPress: () {
                   setState(() {
                     (selected.contains(table[coin]))
@@ -156,10 +157,12 @@ class _CoinsPageState extends State<CoinsPage> {
                 clearSelection();
               },
               icon: const Icon(Icons.star),
-              label: const Text(
+              label: Text(
                 "Favorite",
-                style: TextStyle(letterSpacing: 0, fontWeight: FontWeight.bold),
-              ))
+                style: TextStyles.buttonSecondary,
+              ),
+              backgroundColor: AppColors.label,
+            )
           : null,
     );
   }

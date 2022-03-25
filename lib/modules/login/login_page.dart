@@ -1,4 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:crypto_app/themes/app_colors.dart';
+import 'package:crypto_app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
@@ -75,11 +77,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: -1.5,
-                  ),
+                  style: TextStyles.title,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(24),
@@ -140,18 +138,17 @@ class _LoginPageState extends State<LoginPage> {
                                   width: 24,
                                   height: 24,
                                   child: CircularProgressIndicator(
-                                    color: Colors.white,
+                                    color: AppColors.background,
                                   ),
                                 ),
                               )
                             ]
                           : [
-                              const Icon(Icons.check),
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Text(
                                   actionButton,
-                                  style: const TextStyle(fontSize: 20),
+                                  style: TextStyles.buttonPrimary,
                                 ),
                               ),
                             ],

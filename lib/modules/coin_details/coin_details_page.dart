@@ -1,4 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:crypto_app/themes/app_colors.dart';
+import 'package:crypto_app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -71,11 +73,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                     ),
                     Text(
                       real.format(widget.coin.price),
-                      style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: -1,
-                          color: Colors.grey[800]),
+                      style: TextStyles.bigLabel,
                     )
                   ],
                 ),
@@ -87,14 +85,13 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                       child: Container(
                         child: Text(
                           "$quantity ${widget.coin.acronym}",
-                          style:
-                              const TextStyle(fontSize: 20, color: Colors.teal),
+                          style: TextStyles.subtitle,
                         ),
                         margin: const EdgeInsets.only(bottom: 24),
                         padding: const EdgeInsets.all(12),
                         alignment: Alignment.center,
-                        decoration:
-                            BoxDecoration(color: Colors.teal.withOpacity(0.05)),
+                        decoration: BoxDecoration(
+                            color: AppColors.secondary.withOpacity(0.3)),
                       ),
                     )
                   : const SizedBox(
@@ -136,7 +133,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
               ),
               Container(
                 alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   top: 24,
                 ),
                 child: ElevatedButton(
@@ -146,12 +143,11 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.check),
                         Padding(
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: Text(
                             "Buy",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyles.buttonPrimary,
                           ),
                         )
                       ],

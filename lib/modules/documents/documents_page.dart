@@ -83,7 +83,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
   }
 
   _fileWidget() {
-    return Container(
+    return SizedBox(
       width: size!.width - 50,
       height: size!.height - (size!.height / 3),
       child: image == null

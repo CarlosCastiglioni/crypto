@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:crypto_app/configs/app_settings.dart';
 import 'package:crypto_app/repositories/account_repository.dart';
+import 'package:crypto_app/themes/app_colors.dart';
+import 'package:crypto_app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -39,7 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text("Balance"),
               subtitle: Text(
                 real.format(account.balance),
-                style: const TextStyle(fontSize: 25, color: Colors.indigo),
+                style: TextStyles.titleRegular,
               ),
               trailing: IconButton(
                   onPressed: updateBalance, icon: const Icon(Icons.edit)),
@@ -71,16 +73,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: OutlinedButton(
                     onPressed: () => context.read<AuthService>().logout(),
                     style: OutlinedButton.styleFrom(
-                      primary: Colors.red,
+                      primary: AppColors.cancel,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Padding(
-                          padding: EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Text(
                             'Logout',
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyles.subtitleBold,
                           ),
                         ),
                       ],
