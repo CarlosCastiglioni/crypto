@@ -1,4 +1,4 @@
-import 'package:crypto/models/coin.dart';
+import 'package:crypto_app/models/coin.dart';
 
 class History {
   DateTime operationDate;

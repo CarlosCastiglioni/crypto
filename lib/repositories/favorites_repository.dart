@@ -1,7 +1,8 @@
 import 'dart:collection';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/repositories/coin.repository.dart';
-import 'package:crypto/services/auth_service.dart';
+import 'package:crypto_app/repositories/coin.repository.dart';
+import 'package:crypto_app/services/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import '../databases/db_firestore.dart';
 import '../models/coin.dart';
@@ -27,15 +28,19 @@ class FavoritesRepository extends ChangeNotifier {
 
   _readFavorite() async {
     if (auth.user != null && _list.isEmpty) {
-      final snapShot =
-          await db.collection("users/${auth.user!.uid}/favorites").get();
+      try {
+        final snapShot =
+            await db.collection("users/${auth.user!.uid}/favorites").get();
 
-      snapShot.docs.forEach((doc) {
-        Coin coin = coins.table
-            .firstWhere((coin) => coin.acronym == doc.get("acronym"));
-        _list.add(coin);
-        notifyListeners();
-      });
+        snapShot.docs.forEach((doc) {
+          Coin coin = coins.table
+              .firstWhere((coin) => coin.acronym == doc.get("acronym"));
+          _list.add(coin);
+          notifyListeners();
+        });
+      } catch (e) {
+        BotToast.showText(text: "No user Id");
+      }
     }
   }
 

@@ -1,6 +1,6 @@
-import 'package:crypto/models/history.dart';
-import 'package:crypto/models/position.dart';
-import 'package:crypto/repositories/coin.repository.dart';
+import 'package:crypto_app/models/history.dart';
+import 'package:crypto_app/models/position.dart';
+import 'package:crypto_app/repositories/coin.repository.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 

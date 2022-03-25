@@ -1,6 +1,6 @@
-import 'package:crypto/models/coin.dart';
-import 'package:crypto/modules/coin_details/coin_details_page.dart';
-import 'package:crypto/repositories/favorites_repository.dart';
+import 'package:crypto_app/models/coin.dart';
+import 'package:crypto_app/modules/coin_details/coin_details_page.dart';
+import 'package:crypto_app/repositories/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

@@ -1,7 +1,7 @@
-import 'package:crypto/configs/app_settings.dart';
-import 'package:crypto/modules/coin_details/coin_details_page.dart';
-import 'package:crypto/repositories/coin.repository.dart';
-import 'package:crypto/repositories/favorites_repository.dart';
+import 'package:crypto_app/configs/app_settings.dart';
+import 'package:crypto_app/modules/coin_details/coin_details_page.dart';
+import 'package:crypto_app/repositories/coin.repository.dart';
+import 'package:crypto_app/repositories/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +21,14 @@ class _CoinsPageState extends State<CoinsPage> {
   List<Coin> selected = [];
   late FavoritesRepository favorites;
   late CoinRepository coins;
+
+  checkTableCoins() async {
+    if (table.isEmpty) {
+      await coins.checkPrices();
+    } else {
+      return;
+    }
+  }
 
   readNumberFormat() {
     loc = context.watch<AppSettings>().locale;
@@ -90,6 +98,7 @@ class _CoinsPageState extends State<CoinsPage> {
     coins = context.watch<CoinRepository>();
     table = coins.table;
     readNumberFormat();
+    checkTableCoins();
 
     return Scaffold(
       appBar: dynamicAppbar(),

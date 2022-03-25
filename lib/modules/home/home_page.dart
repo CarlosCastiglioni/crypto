@@ -1,4 +1,4 @@
-import 'package:crypto/modules/coins/coins_page.dart';
+import 'package:crypto_app/modules/coins/coins_page.dart';
 import 'package:flutter/material.dart';
 
 import '../app_settings/settings_page.dart';

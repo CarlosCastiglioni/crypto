@@ -1,4 +1,4 @@
-name: crypto
+name: crypto_app
 description: A new Flutter project.
 
 
@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  google_fonts: ^2.3.1
   bot_toast: ^4.0.1
   intl: ^0.17.0
   provider: ^6.0.2
@@ -22,7 +23,16 @@ dependencies:
   cloud_firestore: ^3.1.10
   http: ^0.13.4
   camera: ^0.9.4+16
-  
+  image_picker: ^0.8.4+11
+  flutter_launcher_icons: ^0.9.2
+
+flutter_icons:
+  image_path: "assets/app/icon.png"
+  ios: true
+  remove_alpha_ios: true
+  android: "launched_icon"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/app/icon.png"
     
 
 dev_dependencies:

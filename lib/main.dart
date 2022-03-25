@@ -1,8 +1,8 @@
-import 'package:crypto/configs/app_settings.dart';
-import 'package:crypto/repositories/account_repository.dart';
-import 'package:crypto/repositories/coin.repository.dart';
-import 'package:crypto/repositories/favorites_repository.dart';
-import 'package:crypto/services/auth_service.dart';
+import 'package:crypto_app/configs/app_settings.dart';
+import 'package:crypto_app/repositories/account_repository.dart';
+import 'package:crypto_app/repositories/coin.repository.dart';
+import 'package:crypto_app/repositories/favorites_repository.dart';
+import 'package:crypto_app/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

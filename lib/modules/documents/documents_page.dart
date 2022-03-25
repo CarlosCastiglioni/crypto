@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
   _previewCamera(CameraDescription camera) async {
     final CameraController cameraController = CameraController(
-        camera, ResolutionPreset.high,
+        camera, ResolutionPreset.low,
         enableAudio: false, imageFormatGroup: ImageFormatGroup.jpeg);
     controller = cameraController;
 
@@ -91,6 +90,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
           ? _cameraPreviewWidget()
           : Image.file(
               File(image!.path),
+              fit: BoxFit.contain,
             ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:crypto/repositories/favorites_repository.dart';
+import 'package:crypto_app/repositories/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

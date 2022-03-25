@@ -1,4 +1,4 @@
-import 'package:crypto/models/coin.dart';
+import 'package:crypto_app/models/coin.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
 import 'dart:convert';

@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:crypto/widgets/auth_check.dart';
+import 'package:crypto_app/widgets/auth_check.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {

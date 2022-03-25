@@ -1,5 +1,5 @@
-import 'package:crypto/configs/app_settings.dart';
-import 'package:crypto/repositories/account_repository.dart';
+import 'package:crypto_app/configs/app_settings.dart';
+import 'package:crypto_app/repositories/account_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -96,13 +96,11 @@ class _WalletPageState extends State<WalletPage> {
   }
 
   loadGraphic() {
-    return (account.balance <= 0)
-        ? Container(
+    return (account.balance <= 0 && account.coins.table.isEmpty)
+        ? SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 200,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
+            child: null,
           )
         : Stack(
             alignment: Alignment.center,
