@@ -111,8 +111,10 @@ class _WalletPageState extends State<WalletPage> {
                     sections: loadWallet(),
                     pieTouchData: PieTouchData(
                       touchCallback: (_, dynamic touch) => setState(() {
-                        index = touch.touchedSection!.touchedSectionIndex;
-                        setGraphicData(index);
+                        if (touch != null) {
+                          index = touch.touchedSection!.touchedSectionIndex;
+                          setGraphicData(index);
+                        }
                       }),
                     ),
                   ),
