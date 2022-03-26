@@ -1,5 +1,7 @@
 import 'package:crypto_app/configs/app_settings.dart';
 import 'package:crypto_app/repositories/account_repository.dart';
+import 'package:crypto_app/themes/app_colors.dart';
+import 'package:crypto_app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -40,21 +42,16 @@ class _WalletPageState extends State<WalletPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(top: 48, bottom: 8),
               child: Text(
                 "Wallet",
-                style: TextStyle(
-                  fontSize: 18,
-                ),
+                style: TextStyles.bigLabel,
               ),
             ),
             Text(
               real.format(totalWallet),
-              style: const TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: -1.5),
+              style: TextStyles.smallLabel,
             ),
             loadGraphic(),
             loadHistory(),
@@ -125,16 +122,11 @@ class _WalletPageState extends State<WalletPage> {
                 children: [
                   Text(
                     graphicLabel,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.teal,
-                    ),
+                    style: TextStyles.bigLabel,
                   ),
                   Text(
                     real.format(graphicValue),
-                    style: const TextStyle(
-                      fontSize: 28,
-                    ),
+                    style: TextStyles.smallLabel,
                   ),
                 ],
               ),
@@ -152,7 +144,7 @@ class _WalletPageState extends State<WalletPage> {
       final isBalance = i == listSize - 1;
       final fontSize = isTouched ? 18.0 : 14.0;
       final radius = isTouched ? 60.0 : 50.0;
-      final color = isTouched ? Colors.tealAccent : Colors.tealAccent[400];
+      final color = isTouched ? AppColors.label : AppColors.secondary;
 
       double percentage = 0;
       if (!isBalance) {
@@ -170,7 +162,7 @@ class _WalletPageState extends State<WalletPage> {
           titleStyle: TextStyle(
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: AppColors.dark,
           ));
     });
   }

@@ -127,7 +127,7 @@ class _CoinsPageState extends State<CoinsPage> {
                         .any((fav) => fav.acronym == table[coin].acronym))
                       const Icon(
                         Icons.star,
-                        color: Colors.amber,
+                        color: AppColors.label,
                         size: 14,
                       )
                   ],

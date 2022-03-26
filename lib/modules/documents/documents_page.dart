@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:camera/camera.dart';
+import 'package:crypto_app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DocumentsPage extends StatefulWidget {
@@ -62,12 +63,12 @@ class _DocumentsPageState extends State<DocumentsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Personal ID"),
-        backgroundColor: Colors.grey[900],
+        backgroundColor: AppColors.grey,
         centerTitle: true,
         elevation: 0,
       ),
       body: Container(
-        color: Colors.grey[900],
+        color: AppColors.grey,
         child: Center(
           child: _fileWidget(),
         ),
@@ -115,12 +116,12 @@ class _DocumentsPageState extends State<DocumentsPage> {
       padding: const EdgeInsets.only(bottom: 24),
       child: CircleAvatar(
         radius: 32,
-        backgroundColor: Colors.black.withOpacity(0.5),
+        backgroundColor: AppColors.dark.withOpacity(0.5),
         child: IconButton(
           onPressed: takePhoto,
           icon: const Icon(
             Icons.camera_alt,
-            color: Colors.white,
+            color: AppColors.background,
             size: 30,
           ),
         ),

@@ -24,6 +24,11 @@ class TextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.grey,
   );
+  static final smallLabel = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: AppColors.grey,
+  );
   static final titleRegular = GoogleFonts.lexendDeca(
     fontSize: 26,
     letterSpacing: -1.5,

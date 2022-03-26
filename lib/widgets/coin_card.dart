@@ -1,6 +1,7 @@
 import 'package:crypto_app/models/coin.dart';
 import 'package:crypto_app/modules/coin_details/coin_details_page.dart';
 import 'package:crypto_app/repositories/favorites_repository.dart';
+import 'package:crypto_app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +21,8 @@ class _CoinCardState extends State<CoinCard> {
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
 
   static Map<String, Color> priceColor = <String, Color>{
-    'up': Colors.teal,
-    'down': Colors.indigo,
+    'up': AppColors.cancel,
+    'down': AppColors.label,
   };
 
   abrirDetalhes() {
@@ -65,7 +66,7 @@ class _CoinCardState extends State<CoinCard> {
                         widget.coin.acronym,
                         style: const TextStyle(
                           fontSize: 13,
-                          color: Colors.black45,
+                          color: AppColors.dark,
                         ),
                       ),
                     ],

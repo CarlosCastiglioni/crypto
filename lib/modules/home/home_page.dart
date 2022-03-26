@@ -1,4 +1,5 @@
 import 'package:crypto_app/modules/coins/coins_page.dart';
+import 'package:crypto_app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../app_settings/settings_page.dart';
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.ease);
           },
-          backgroundColor: Colors.grey[100],
+          backgroundColor: AppColors.background,
         ),
       ),
     );

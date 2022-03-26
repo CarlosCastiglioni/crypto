@@ -1,3 +1,4 @@
+import 'package:crypto_app/themes/app_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +19,7 @@ enum Period { time, day, week, month, year, total }
 
 class _GraficHistoryState extends State<GraphicHistory> {
   List<Color> colors = [
-    const Color(0xFF3F51B5),
+    AppColors.primary,
   ];
   Period period = Period.time;
   List<Map<String, dynamic>> history = [];
@@ -94,7 +95,7 @@ class _GraficHistoryState extends State<GraphicHistory> {
               return LineTooltipItem(
                 real.format(item.y),
                 const TextStyle(
-                  color: Colors.white,
+                  color: AppColors.background,
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
                 ),
@@ -103,7 +104,7 @@ class _GraficHistoryState extends State<GraphicHistory> {
                     text: '\n $date',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.white.withOpacity(.5),
+                      color: AppColors.background.withOpacity(0.5),
                     ),
                   ),
                 ],
@@ -131,10 +132,11 @@ class _GraficHistoryState extends State<GraphicHistory> {
         child: Text(label),
         style: (period != p)
             ? ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.grey),
+                foregroundColor: MaterialStateProperty.all(AppColors.grey),
               )
             : ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.indigo[50]),
+                backgroundColor: MaterialStateProperty.all(
+                    AppColors.primary.withOpacity(0.3)),
               ),
       ),
     );

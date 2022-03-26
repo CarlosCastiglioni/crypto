@@ -1,4 +1,5 @@
 import 'package:crypto_app/repositories/favorites_repository.dart';
+import 'package:crypto_app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         title: const Center(child: Text("Favorite Coins")),
       ),
       body: Container(
-        color: Colors.indigo.withOpacity(0.05),
+        color: AppColors.secondary,
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.all(12.0),
         child:
