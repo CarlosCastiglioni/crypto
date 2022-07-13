@@ -43,7 +43,7 @@ class _WalletPageState extends State<WalletPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 48, bottom: 8),
+              padding: const EdgeInsets.only(top: 48, bottom: 8),
               child: Text(
                 "Wallet",
                 style: TextStyles.bigLabel,

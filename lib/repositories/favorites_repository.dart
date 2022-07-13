@@ -32,12 +32,12 @@ class FavoritesRepository extends ChangeNotifier {
         final snapShot =
             await db.collection("users/${auth.user!.uid}/favorites").get();
 
-        snapShot.docs.forEach((doc) {
+        for (var doc in snapShot.docs) {
           Coin coin = coins.table
               .firstWhere((coin) => coin.acronym == doc.get("acronym"));
           _list.add(coin);
           notifyListeners();
-        });
+        }
       } catch (e) {
         BotToast.showText(text: "No user Id");
       }

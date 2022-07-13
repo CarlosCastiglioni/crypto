@@ -57,8 +57,8 @@ class CoinRepository extends ChangeNotifier {
       Database db = await DB.instance.database;
       Batch batch = db.batch();
 
-      _table.forEach((current) {
-        coins.forEach((fresh) {
+      for (var current in _table) {
+        for (var fresh in coins) {
           if (current.baseId == fresh['base_id']) {
             final coin = fresh['prices'];
             final price = coin['latest_price'];
@@ -80,8 +80,8 @@ class CoinRepository extends ChangeNotifier {
               whereArgs: [current.baseId],
             );
           }
-        });
-      });
+        }
+      }
       await batch.commit(noResult: true);
       await _readCoinsTable();
     }
@@ -129,7 +129,7 @@ class CoinRepository extends ChangeNotifier {
         Database db = await DB.instance.database;
         Batch batch = db.batch();
 
-        coins.forEach((coin) {
+        for (var coin in coins) {
           final price = coin['latest_price'];
           final timestamp = DateTime.parse(price['timestamp']);
 
@@ -147,7 +147,7 @@ class CoinRepository extends ChangeNotifier {
             'changeYear': price['percent_change']['year'].toString(),
             'changeAllPeriod': price['percent_change']['all'].toString()
           });
-        });
+        }
         await batch.commit(noResult: true);
       }
     }

@@ -115,7 +115,7 @@ class _SettingsPageState extends State<SettingsPage> {
     value.text = account.balance.toString();
 
     AlertDialog dialog = AlertDialog(
-      title: Text("Update Balance"),
+      title: const Text("Update Balance"),
       content: Form(
         key: form,
         child: TextFormField(

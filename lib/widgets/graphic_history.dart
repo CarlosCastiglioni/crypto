@@ -77,12 +77,10 @@ class _GraficHistoryState extends State<GraphicHistory> {
         LineChartBarData(
           spots: graphicData,
           isCurved: true,
-          colors: colors,
           barWidth: 2,
           dotData: FlDotData(show: false),
           belowBarData: BarAreaData(
             show: true,
-            colors: colors.map((color) => color.withOpacity(0.15)).toList(),
           ),
         ),
       ],
@@ -118,10 +116,11 @@ class _GraficHistoryState extends State<GraphicHistory> {
 
   getDate(int index) {
     DateTime date = completeData[index][1];
-    if (period != Period.year && period != Period.total)
+    if (period != Period.year && period != Period.total) {
       return DateFormat('dd/MM - hh:mm').format(date);
-    else
+    } else {
       return DateFormat('dd/MM/y').format(date);
+    }
   }
 
   chartButton(Period p, String label) {
@@ -149,41 +148,39 @@ class _GraficHistoryState extends State<GraphicHistory> {
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
     setData();
 
-    return Container(
-      child: AspectRatio(
-        aspectRatio: 2,
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  chartButton(Period.time, '1H'),
-                  chartButton(Period.day, '24H'),
-                  chartButton(Period.week, '7D'),
-                  chartButton(Period.month, 'Month'),
-                  chartButton(Period.year, 'Year'),
-                  chartButton(Period.total, 'Total'),
-                ],
-              ),
+    return AspectRatio(
+      aspectRatio: 2,
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                chartButton(Period.time, '1H'),
+                chartButton(Period.day, '24H'),
+                chartButton(Period.week, '7D'),
+                chartButton(Period.month, 'Month'),
+                chartButton(Period.year, 'Year'),
+                chartButton(Period.total, 'Total'),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 80),
-              child: ValueListenableBuilder(
-                valueListenable: loaded,
-                builder: (context, bool isLoaded, _) {
-                  return (isLoaded)
-                      ? LineChart(
-                          getChartData(),
-                        )
-                      : const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                },
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 80),
+            child: ValueListenableBuilder(
+              valueListenable: loaded,
+              builder: (context, bool isLoaded, _) {
+                return (isLoaded)
+                    ? LineChart(
+                        getChartData(),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

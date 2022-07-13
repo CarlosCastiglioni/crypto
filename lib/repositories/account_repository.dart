@@ -31,7 +31,7 @@ class AccountRepository extends ChangeNotifier {
   _getHistory() async {
     _history = [];
     List operations = await db.query("history");
-    operations.forEach((operation) {
+    for (var operation in operations) {
       Coin coin = coins.table.firstWhere(
         (c) => c.acronym == operation["acronym"],
       );
@@ -43,7 +43,7 @@ class AccountRepository extends ChangeNotifier {
         value: operation["value"],
         quantity: double.parse(operation["quantity"]),
       ));
-    });
+    }
     notifyListeners();
   }
 
@@ -66,7 +66,7 @@ class AccountRepository extends ChangeNotifier {
   _getWallet() async {
     _wallet = [];
     List positions = await db.query('wallet');
-    positions.forEach((position) {
+    for (var position in positions) {
       Coin coin = coins.table.firstWhere(
         (c) => c.acronym == position['acronym'],
       );
@@ -74,7 +74,7 @@ class AccountRepository extends ChangeNotifier {
         coin: coin,
         quantity: double.parse(position['quantity']),
       ));
-    });
+    }
     notifyListeners();
   }
 

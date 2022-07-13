@@ -34,7 +34,7 @@ void main() async {
                 LoginController(auth: context.read<AuthService>())),
         ChangeNotifierProvider(create: (context) => HomeController()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
