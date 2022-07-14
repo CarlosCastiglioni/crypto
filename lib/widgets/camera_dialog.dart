@@ -35,7 +35,7 @@ class _CameraDialogState extends State<CameraDialog> {
               onTap: _getFromCamera,
             ),
             ButtonCamera(
-              text: 'Galery',
+              text: 'Gallery',
               icon: Icons.collections,
               onTap: selectId,
             )

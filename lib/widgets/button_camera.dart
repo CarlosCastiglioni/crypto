@@ -1,3 +1,5 @@
+import 'package:crypto_app/themes/app_colors.dart';
+import 'package:crypto_app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCamera extends StatelessWidget {
@@ -17,7 +19,7 @@ class ButtonCamera extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).primaryColorLight),
+          border: Border.all(color: AppColors.label),
           borderRadius: BorderRadius.circular(10)),
       child: Material(
         borderRadius: BorderRadius.circular(10),
@@ -34,14 +36,12 @@ class ButtonCamera extends StatelessWidget {
                 Icon(
                   icon,
                   size: 40,
-                  color: Theme.of(context).primaryColor,
+                  color: AppColors.primary,
                 ),
                 const SizedBox(width: 16),
                 Text(
                   text,
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
+                  style: TextStyles.selection,
                 ),
               ],
             ),
