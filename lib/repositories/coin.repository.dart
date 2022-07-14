@@ -27,7 +27,7 @@ class CoinRepository extends ChangeNotifier {
   getCoinHistory(Coin coin) async {
     final response = await http.get(
       Uri.parse(
-        'https://api.coinbase.com/v2/assets/prices/${coin.baseId}?base=BRL',
+        'https://api.coinbase.com/v2/assets/prices/${coin.baseId}?base=USD',
       ),
     );
     List<Map<String, dynamic>> prices = [];
@@ -48,7 +48,7 @@ class CoinRepository extends ChangeNotifier {
   }
 
   checkPrices() async {
-    String uri = 'https://api.coinbase.com/v2/assets/prices?base=BRL';
+    String uri = 'https://api.coinbase.com/v2/assets/prices?base=USD';
     final response = await http.get(Uri.parse(uri));
 
     if (response.statusCode == 200) {
@@ -119,7 +119,7 @@ class CoinRepository extends ChangeNotifier {
 
   _setupDataTableCoin() async {
     if (await _coinsTableIsEmpty()) {
-      String uri = 'https://api.coinbase.com/v2/assets/search?base=BRL';
+      String uri = 'https://api.coinbase.com/v2/assets/search?base=USD';
 
       final response = await http.get(Uri.parse(uri));
 

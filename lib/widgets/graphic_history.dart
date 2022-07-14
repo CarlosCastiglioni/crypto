@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../configs/app_settings.dart';
 import '../models/coin.dart';
 import '../repositories/coin.repository.dart';
 
@@ -30,7 +29,6 @@ class _GraficHistoryState extends State<GraphicHistory> {
   double minY = 0;
   ValueNotifier<bool> loaded = ValueNotifier(false);
   late CoinRepository repository;
-  late Map<String, String> loc;
   late NumberFormat real;
 
   setData() async {
@@ -144,8 +142,7 @@ class _GraficHistoryState extends State<GraphicHistory> {
   @override
   Widget build(BuildContext context) {
     repository = context.read<CoinRepository>();
-    loc = context.read<AppSettings>().locale;
-    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+    real = NumberFormat.currency(locale: "en_US");
     setData();
 
     return AspectRatio(

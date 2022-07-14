@@ -9,23 +9,23 @@ import 'package:provider/provider.dart';
 import '../repositories/favorites_repository.dart';
 
 class CoinCard extends StatefulWidget {
-  Coin coin;
+  final Coin coin;
 
-  CoinCard({Key? key, required this.coin}) : super(key: key);
+  const CoinCard({Key? key, required this.coin}) : super(key: key);
 
   @override
   _CoinCardState createState() => _CoinCardState();
 }
 
 class _CoinCardState extends State<CoinCard> {
-  NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
+  NumberFormat real = NumberFormat.currency(locale: 'en_US');
 
   static Map<String, Color> priceColor = <String, Color>{
     'up': AppColors.cancel,
     'down': AppColors.label,
   };
 
-  abrirDetalhes() {
+  openDetails() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -40,7 +40,7 @@ class _CoinCardState extends State<CoinCard> {
       margin: const EdgeInsets.only(top: 12),
       elevation: 2,
       child: InkWell(
-        onTap: () => abrirDetalhes(),
+        onTap: () => openDetails(),
         child: Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
           child: Row(

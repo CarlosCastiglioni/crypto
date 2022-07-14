@@ -20,7 +20,7 @@ class CoinDetailsPage extends StatefulWidget {
 }
 
 class _CoinDetailsPageState extends State<CoinDetailsPage> {
-  NumberFormat real = NumberFormat.currency(locale: "pt_BR", name: "R\$");
+  NumberFormat real = NumberFormat.currency(locale: "en_US");
   final _form = GlobalKey<FormState>();
   final _value = TextEditingController();
   double quantity = 0;
@@ -107,7 +107,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                       labelText: "Value",
                       prefixIcon: Icon(Icons.monetization_on_outlined),
                       suffix: Text(
-                        "Reais",
+                        "USD",
                         style: TextStyle(fontSize: 14),
                       )),
                   keyboardType: TextInputType.number,
@@ -116,7 +116,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                     if (value!.isEmpty) {
                       return "Please inform a value";
                     } else if (double.parse(value) < 50) {
-                      return "Minimum of 50 reais";
+                      return "Minimum of 50 USD";
                     } else if (double.parse(value) > account.balance) {
                       return "Not enough balance";
                     }

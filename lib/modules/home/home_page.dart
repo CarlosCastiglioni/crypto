@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
           ),
           bottomNavigationBar: NavigationBarTheme(
             data: NavigationBarThemeData(
+                indicatorColor: AppColors.label,
                 labelTextStyle: MaterialStateProperty.all(const TextStyle(
                     fontSize: 14, fontWeight: FontWeight.w500))),
             child: NavigationBar(

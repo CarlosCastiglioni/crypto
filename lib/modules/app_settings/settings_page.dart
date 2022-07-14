@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:crypto_app/configs/app_settings.dart';
 import 'package:crypto_app/modules/app_settings/settings_controller.dart';
 import 'package:crypto_app/repositories/account_repository.dart';
 import 'package:crypto_app/themes/app_colors.dart';
@@ -26,9 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final account = context.watch<AccountRepository>();
-    final loc = context.read<AppSettings>().locale;
-    NumberFormat real =
-        NumberFormat.currency(locale: loc["locale"], name: loc["name"]);
+    NumberFormat real = NumberFormat.currency(locale: "en_US");
 
     return Scaffold(
       appBar: AppBar(title: const Center(child: Text("Settings"))),
