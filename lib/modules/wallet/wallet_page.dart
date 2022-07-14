@@ -19,7 +19,7 @@ class _WalletPageState extends State<WalletPage> {
   int index = 0;
   double totalWallet = 0;
   late double balance;
-  late NumberFormat real;
+  late NumberFormat usd;
   late AccountRepository account;
 
   String graphicLabel = "";
@@ -29,7 +29,7 @@ class _WalletPageState extends State<WalletPage> {
   @override
   Widget build(BuildContext context) {
     account = context.watch<AccountRepository>();
-    real = NumberFormat.currency(locale: "en_US");
+    usd = NumberFormat.currency(locale: "en_US");
     balance = account.balance;
 
     setTotalWallet();
@@ -48,7 +48,7 @@ class _WalletPageState extends State<WalletPage> {
               ),
             ),
             Text(
-              real.format(totalWallet),
+              usd.format(totalWallet),
               style: TextStyles.smallLabel,
             ),
             loadGraphic(),
@@ -125,7 +125,7 @@ class _WalletPageState extends State<WalletPage> {
                     style: TextStyles.bigLabel,
                   ),
                   Text(
-                    real.format(graphicValue),
+                    usd.format(graphicValue),
                     style: TextStyles.smallLabel,
                   ),
                 ],

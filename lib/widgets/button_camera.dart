@@ -36,10 +36,10 @@ class ButtonCamera extends StatelessWidget {
                   size: 40,
                   color: Theme.of(context).primaryColor,
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Text(
                   text,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),

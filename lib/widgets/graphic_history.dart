@@ -29,7 +29,7 @@ class _GraficHistoryState extends State<GraphicHistory> {
   double minY = 0;
   ValueNotifier<bool> loaded = ValueNotifier(false);
   late CoinRepository repository;
-  late NumberFormat real;
+  late NumberFormat usd;
 
   setData() async {
     loaded.value = false;
@@ -73,6 +73,7 @@ class _GraficHistoryState extends State<GraphicHistory> {
       maxY: maxY,
       lineBarsData: [
         LineChartBarData(
+          color: AppColors.primary,
           spots: graphicData,
           isCurved: true,
           barWidth: 2,
@@ -89,7 +90,7 @@ class _GraficHistoryState extends State<GraphicHistory> {
             return data.map((item) {
               final date = getDate(item.spotIndex);
               return LineTooltipItem(
-                real.format(item.y),
+                usd.format(item.y),
                 const TextStyle(
                   color: AppColors.background,
                   fontSize: 15,
@@ -142,7 +143,7 @@ class _GraficHistoryState extends State<GraphicHistory> {
   @override
   Widget build(BuildContext context) {
     repository = context.read<CoinRepository>();
-    real = NumberFormat.currency(locale: "en_US");
+    usd = NumberFormat.currency(locale: "en_US");
     setData();
 
     return AspectRatio(

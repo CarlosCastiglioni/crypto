@@ -25,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final account = context.watch<AccountRepository>();
-    NumberFormat real = NumberFormat.currency(locale: "en_US");
+    NumberFormat usd = NumberFormat.currency(locale: "en_US");
 
     return Scaffold(
       appBar: AppBar(title: const Center(child: Text("Settings"))),
@@ -36,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ListTile(
               title: const Text("Balance"),
               subtitle: Text(
-                real.format(account.balance),
+                usd.format(account.balance),
                 style: TextStyles.titleRegular,
               ),
               trailing: IconButton(

@@ -18,7 +18,7 @@ class CoinCard extends StatefulWidget {
 }
 
 class _CoinCardState extends State<CoinCard> {
-  NumberFormat real = NumberFormat.currency(locale: 'en_US');
+  NumberFormat usd = NumberFormat.currency(locale: 'en_US');
 
   static Map<String, Color> priceColor = <String, Color>{
     'up': AppColors.cancel,
@@ -84,7 +84,7 @@ class _CoinCardState extends State<CoinCard> {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Text(
-                  real.format(widget.coin.price),
+                  usd.format(widget.coin.price),
                   style: TextStyle(
                     fontSize: 16,
                     color: priceColor['down'],

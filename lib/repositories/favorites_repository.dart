@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_app/repositories/coin.repository.dart';
 import 'package:crypto_app/services/auth_service.dart';
@@ -39,7 +38,7 @@ class FavoritesRepository extends ChangeNotifier {
           notifyListeners();
         }
       } catch (e) {
-        BotToast.showText(text: "No user Id");
+        e.toString();
       }
     }
   }

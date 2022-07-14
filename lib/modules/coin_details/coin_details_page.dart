@@ -20,7 +20,7 @@ class CoinDetailsPage extends StatefulWidget {
 }
 
 class _CoinDetailsPageState extends State<CoinDetailsPage> {
-  NumberFormat real = NumberFormat.currency(locale: "en_US");
+  NumberFormat usd = NumberFormat.currency(locale: "en_US");
   final _form = GlobalKey<FormState>();
   final _value = TextEditingController();
   double quantity = 0;
@@ -72,7 +72,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                       width: 10,
                     ),
                     Text(
-                      real.format(widget.coin.price),
+                      usd.format(widget.coin.price),
                       style: TextStyles.bigLabel,
                     )
                   ],
