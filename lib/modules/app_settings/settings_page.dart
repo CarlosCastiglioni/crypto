@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:crypto_app/modules/app_settings/settings_controller.dart';
 import 'package:crypto_app/repositories/account_repository.dart';
 import 'package:crypto_app/themes/app_colors.dart';
@@ -7,7 +6,6 @@ import 'package:crypto_app/themes/app_text_styles.dart';
 import 'package:crypto_app/widgets/camera_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
@@ -20,8 +18,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  XFile? id;
-
   @override
   Widget build(BuildContext context) {
     final account = context.watch<AccountRepository>();
@@ -99,16 +95,6 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ),
     );
-  }
-
-  selectId() async {
-    final ImagePicker picker = ImagePicker();
-    try {
-      XFile? file = await picker.pickImage(source: ImageSource.gallery);
-      if (file != null) setState(() => id = file);
-    } catch (e) {
-      BotToast.showText(text: e.toString());
-    }
   }
 
   updateBalance() async {

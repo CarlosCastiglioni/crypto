@@ -1,14 +1,13 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:crypto_app/models/coin.dart';
+import 'package:crypto_app/repositories/account_repository.dart';
 import 'package:crypto_app/themes/app_colors.dart';
 import 'package:crypto_app/themes/app_text_styles.dart';
+import 'package:crypto_app/widgets/graphic_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/coin.dart';
-import '../../repositories/account_repository.dart';
-import '../../widgets/graphic_history.dart';
 
 class CoinDetailsPage extends StatefulWidget {
   final Coin coin;

@@ -16,7 +16,6 @@ class WalletController extends ChangeNotifier {
     for (var position in walletList) {
       totalWallet += position.coin.price * position.quantity;
     }
-    notifyListeners();
   }
 
   setGraphicData(int index) {
@@ -29,6 +28,5 @@ class WalletController extends ChangeNotifier {
       graphicLabel = wallet[index].coin.name;
       graphicValue = wallet[index].coin.price * wallet[index].quantity;
     }
-    notifyListeners();
   }
 }
