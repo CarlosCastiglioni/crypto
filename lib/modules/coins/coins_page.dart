@@ -1,5 +1,6 @@
 import 'package:crypto_app/configs/app_settings.dart';
 import 'package:crypto_app/modules/coin_details/coin_details_page.dart';
+import 'package:crypto_app/modules/coins/coins_controller.dart';
 import 'package:crypto_app/repositories/coin.repository.dart';
 import 'package:crypto_app/repositories/favorites_repository.dart';
 import 'package:crypto_app/themes/app_colors.dart';
@@ -20,7 +21,6 @@ class _CoinsPageState extends State<CoinsPage> {
   late List<Coin> table;
   late NumberFormat real;
   late Map<String, String> loc;
-  List<Coin> selected = [];
   late FavoritesRepository favorites;
   late CoinRepository coins;
 
@@ -57,7 +57,7 @@ class _CoinsPageState extends State<CoinsPage> {
     );
   }
 
-  dynamicAppbar() {
+  dynamicAppbar(Function clearSelection, List<Coin> selected) {
     if (selected.isEmpty) {
       return AppBar(
         title: const Center(child: Text("Cryptocurrencies")),
@@ -68,9 +68,7 @@ class _CoinsPageState extends State<CoinsPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            setState(() {
-              selected = [];
-            });
+            clearSelection();
           },
         ),
         title: Center(child: Text('${selected.length} Selected')),
@@ -87,12 +85,6 @@ class _CoinsPageState extends State<CoinsPage> {
         MaterialPageRoute(builder: (_) => CoinDetailsPage(coin: coin)));
   }
 
-  clearSelection() {
-    setState(() {
-      selected = [];
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     favorites = context.watch<FavoritesRepository>();
@@ -101,69 +93,71 @@ class _CoinsPageState extends State<CoinsPage> {
     readNumberFormat();
     checkTableCoins();
 
-    return Scaffold(
-      appBar: dynamicAppbar(),
-      body: RefreshIndicator(
-        onRefresh: () => coins.checkPrices(),
-        child: ListView.separated(
-            itemBuilder: (BuildContext context, int coin) {
-              return ListTile(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12))),
-                leading: (selected.contains(table[coin]))
-                    ? const CircleAvatar(
-                        backgroundColor: AppColors.label,
-                        foregroundColor: AppColors.background,
-                        child: Icon(
-                          Icons.check,
-                        ),
-                      )
-                    : SizedBox(
-                        width: 40, child: Image.network(table[coin].icon)),
-                title: Row(
-                  children: [
-                    Text(table[coin].name, style: TextStyles.text),
-                    if (favorites.list
-                        .any((fav) => fav.acronym == table[coin].acronym))
-                      const Icon(
-                        Icons.star,
-                        color: AppColors.label,
-                        size: 14,
-                      )
-                  ],
-                ),
-                trailing: Text(real.format(table[coin].price)),
-                selected: selected.contains(table[coin]),
-                selectedTileColor: AppColors.secondary.withOpacity(0.7),
-                onLongPress: () {
-                  setState(() {
-                    (selected.contains(table[coin]))
-                        ? selected.remove(table[coin])
-                        : selected.add(table[coin]);
-                  });
-                },
-                onTap: () => showDetails(table[coin]),
-              );
-            },
-            padding: const EdgeInsets.all(16),
-            separatorBuilder: (_, __) => const Divider(),
-            itemCount: table.length),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: selected.isNotEmpty
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                favorites.saveAll(selected);
-                clearSelection();
+    return Consumer<CoinsController>(builder: (context, controller, child) {
+      return Scaffold(
+        appBar: dynamicAppbar(controller.clearSelection, controller.selected),
+        body: RefreshIndicator(
+          onRefresh: () => coins.checkPrices(),
+          child: ListView.separated(
+              itemBuilder: (BuildContext context, int coin) {
+                return ListTile(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                  leading: (controller.selected.contains(table[coin]))
+                      ? const CircleAvatar(
+                          backgroundColor: AppColors.label,
+                          foregroundColor: AppColors.background,
+                          child: Icon(
+                            Icons.check,
+                          ),
+                        )
+                      : SizedBox(
+                          width: 40, child: Image.network(table[coin].icon)),
+                  title: Row(
+                    children: [
+                      Text(table[coin].name, style: TextStyles.text),
+                      if (favorites.list
+                          .any((fav) => fav.acronym == table[coin].acronym))
+                        const Icon(
+                          Icons.star,
+                          color: AppColors.label,
+                          size: 14,
+                        )
+                    ],
+                  ),
+                  trailing: Text(real.format(table[coin].price)),
+                  selected: controller.selected.contains(table[coin]),
+                  selectedTileColor: AppColors.secondary.withOpacity(0.7),
+                  onLongPress: () {
+                    setState(() {
+                      (controller.selected.contains(table[coin]))
+                          ? controller.selected.remove(table[coin])
+                          : controller.selected.add(table[coin]);
+                    });
+                  },
+                  onTap: () => showDetails(table[coin]),
+                );
               },
-              icon: const Icon(Icons.star),
-              label: Text(
-                "Favorite",
-                style: TextStyles.buttonSecondary,
-              ),
-              backgroundColor: AppColors.label,
-            )
-          : null,
-    );
+              padding: const EdgeInsets.all(16),
+              separatorBuilder: (_, __) => const Divider(),
+              itemCount: table.length),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: controller.selected.isNotEmpty
+            ? FloatingActionButton.extended(
+                onPressed: () {
+                  favorites.saveAll(controller.selected);
+                  controller.clearSelection();
+                },
+                icon: const Icon(Icons.star),
+                label: Text(
+                  "Favorite",
+                  style: TextStyles.buttonSecondary,
+                ),
+                backgroundColor: AppColors.label,
+              )
+            : null,
+      );
+    });
   }
 }

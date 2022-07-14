@@ -1,5 +1,6 @@
 import 'package:crypto_app/configs/app_settings.dart';
 import 'package:crypto_app/modules/app_settings/settings_controller.dart';
+import 'package:crypto_app/modules/coins/coins_controller.dart';
 import 'package:crypto_app/modules/home/home_controller.dart';
 import 'package:crypto_app/modules/login/login_controller.dart';
 import 'package:crypto_app/repositories/account_repository.dart';
@@ -35,6 +36,7 @@ void main() async {
                 LoginController(auth: context.read<AuthService>())),
         ChangeNotifierProvider(create: (context) => HomeController()),
         ChangeNotifierProvider(create: (context) => SettingsController()),
+        ChangeNotifierProvider(create: (context) => CoinsController()),
       ],
       child: const MyApp(),
     ),
