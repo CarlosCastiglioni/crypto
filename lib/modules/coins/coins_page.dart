@@ -1,4 +1,3 @@
-import 'package:crypto_app/configs/app_settings.dart';
 import 'package:crypto_app/modules/coin_details/coin_details_page.dart';
 import 'package:crypto_app/modules/coins/coins_controller.dart';
 import 'package:crypto_app/repositories/coin.repository.dart';
@@ -18,50 +17,12 @@ class CoinsPage extends StatefulWidget {
 }
 
 class _CoinsPageState extends State<CoinsPage> {
-  late List<Coin> table;
-  late NumberFormat real;
-  late Map<String, String> loc;
   late FavoritesRepository favorites;
-  late CoinRepository coins;
-
-  checkTableCoins() async {
-    if (table.isEmpty) {
-      await coins.checkPrices();
-    } else {
-      return;
-    }
-  }
-
-  readNumberFormat() {
-    loc = context.watch<AppSettings>().locale;
-    real = NumberFormat.currency(locale: loc["locale"], name: loc["name"]);
-  }
-
-  changeLanguageButton() {
-    final locale = loc["locale"] == "pt_BR" ? "en_US" : "pt_BR";
-    final name = loc["locale"] == "pt_BR" ? "\$" : "R\$";
-
-    return PopupMenuButton(
-      icon: const Icon(Icons.language),
-      itemBuilder: (context) => [
-        PopupMenuItem(
-            child: ListTile(
-          leading: const Icon(Icons.swap_vert),
-          title: Text("Use $locale"),
-          onTap: () {
-            context.read<AppSettings>().setLocale(locale, name);
-            Navigator.pop(context);
-          },
-        )),
-      ],
-    );
-  }
 
   dynamicAppbar(Function clearSelection, List<Coin> selected) {
     if (selected.isEmpty) {
       return AppBar(
         title: const Center(child: Text("Cryptocurrencies")),
-        actions: [changeLanguageButton()],
       );
     } else {
       return AppBar(
@@ -87,23 +48,22 @@ class _CoinsPageState extends State<CoinsPage> {
 
   @override
   Widget build(BuildContext context) {
-    favorites = context.watch<FavoritesRepository>();
-    coins = context.watch<CoinRepository>();
-    table = coins.table;
-    readNumberFormat();
-    checkTableCoins();
-
     return Consumer<CoinsController>(builder: (context, controller, child) {
+      favorites = context.watch<FavoritesRepository>();
+      controller.coins = context.watch<CoinRepository>();
+      controller.table = controller.coins.table;
+      controller.checkTableCoins();
       return Scaffold(
         appBar: dynamicAppbar(controller.clearSelection, controller.selected),
         body: RefreshIndicator(
-          onRefresh: () => coins.checkPrices(),
+          onRefresh: () => controller.coins.checkPrices(),
           child: ListView.separated(
               itemBuilder: (BuildContext context, int coin) {
                 return ListTile(
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12))),
-                  leading: (controller.selected.contains(table[coin]))
+                  leading: (controller.selected
+                          .contains(controller.table[coin]))
                       ? const CircleAvatar(
                           backgroundColor: AppColors.label,
                           foregroundColor: AppColors.background,
@@ -112,12 +72,13 @@ class _CoinsPageState extends State<CoinsPage> {
                           ),
                         )
                       : SizedBox(
-                          width: 40, child: Image.network(table[coin].icon)),
+                          width: 40,
+                          child: Image.network(controller.table[coin].icon)),
                   title: Row(
                     children: [
-                      Text(table[coin].name, style: TextStyles.text),
-                      if (favorites.list
-                          .any((fav) => fav.acronym == table[coin].acronym))
+                      Text(controller.table[coin].name, style: TextStyles.text),
+                      if (favorites.list.any((fav) =>
+                          fav.acronym == controller.table[coin].acronym))
                         const Icon(
                           Icons.star,
                           color: AppColors.label,
@@ -125,22 +86,24 @@ class _CoinsPageState extends State<CoinsPage> {
                         )
                     ],
                   ),
-                  trailing: Text(real.format(table[coin].price)),
-                  selected: controller.selected.contains(table[coin]),
+                  trailing: Text(NumberFormat.currency()
+                      .format(controller.table[coin].price)),
+                  selected:
+                      controller.selected.contains(controller.table[coin]),
                   selectedTileColor: AppColors.secondary.withOpacity(0.7),
                   onLongPress: () {
                     setState(() {
-                      (controller.selected.contains(table[coin]))
-                          ? controller.selected.remove(table[coin])
-                          : controller.selected.add(table[coin]);
+                      (controller.selected.contains(controller.table[coin]))
+                          ? controller.selected.remove(controller.table[coin])
+                          : controller.selected.add(controller.table[coin]);
                     });
                   },
-                  onTap: () => showDetails(table[coin]),
+                  onTap: () => showDetails(controller.table[coin]),
                 );
               },
               padding: const EdgeInsets.all(16),
               separatorBuilder: (_, __) => const Divider(),
-              itemCount: table.length),
+              itemCount: controller.table.length),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: controller.selected.isNotEmpty
