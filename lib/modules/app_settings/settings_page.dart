@@ -1,18 +1,17 @@
-import 'dart:io';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:crypto_app/configs/app_settings.dart';
+import 'package:crypto_app/modules/app_settings/settings_controller.dart';
 import 'package:crypto_app/repositories/account_repository.dart';
 import 'package:crypto_app/themes/app_colors.dart';
+import 'package:crypto_app/themes/app_images.dart';
 import 'package:crypto_app/themes/app_text_styles.dart';
+import 'package:crypto_app/widgets/camera_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../services/auth_service.dart';
-import '../documents/documents_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -47,24 +46,32 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: updateBalance, icon: const Icon(Icons.edit)),
             ),
             const Divider(),
-            ListTile(
-              leading: const Icon(Icons.camera_alt),
-              title: const Text("Scan your ID"),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const DocumentsPage(),
-                    fullscreenDialog: true),
-              ),
+            Text(
+              "Click on the image to set your photo",
+              style: TextStyles.text,
             ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.attach_file),
-              title: const Text("Attach ID"),
-              onTap: selectId,
-              trailing: id != null ? Image.file(File(id!.path)) : null,
+            const SizedBox(
+              height: 10,
             ),
-            const Divider(),
+            SizedBox(
+              height: 250,
+              width: 250,
+              child: Consumer<SettingsController>(
+                  builder: (context, controller, child) {
+                return GestureDetector(
+                  child: controller.image != null
+                      ? Image.file(controller.image!)
+                      : Image.asset(AppImages.avatar),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => CameraDialog(
+                              saveFile: controller.savePhoto,
+                            ));
+                  },
+                );
+              }),
+            ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,

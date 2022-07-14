@@ -18,10 +18,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<HomeController>(context);
-
     return Consumer<HomeController>(
-      builder: (BuildContext context, value, Widget? child) {
+      builder: (BuildContext context, controller, Widget? child) {
         return Scaffold(
           body: PageView(
             onPageChanged: controller.setPage,
