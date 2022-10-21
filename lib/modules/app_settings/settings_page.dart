@@ -73,7 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: OutlinedButton(
                     onPressed: () => context.read<AuthService>().logout(),
                     style: OutlinedButton.styleFrom(
-                      primary: AppColors.cancel,
+                      foregroundColor: AppColors.cancel,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
